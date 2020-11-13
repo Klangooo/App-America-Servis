@@ -1,25 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, Text, View, Image, TextInput } from 'react-native';
+
 
 import logoImg from './assets/icon.png';
 
-export default function App() {
-//
-    state = {
-    cpf: '',
-    }
+export default function App({ onPress }) {
 
-  render(); {
-    const UserList = ({ cpf }) => {
-      if (cpf == "123.456.789-10") {
-          return 1;}
-      else {
-        return 0;}
-      }
-    }
-//
+  const [age, setAge] = useState ('12');
+
   return (
 
     <View style={styles.container}>
@@ -34,28 +23,63 @@ export default function App() {
       >Bem-vindo!</Text>
       <StatusBar style="auto" />
 
-//
-    <TextInput
-      secureTextEntry = {true}
-      style={styles.input}
-      onChangeText = { text => this.state.cpf = text}
-      placeholder="Digite seu CPF:" />
+      <Text
+      style={styles.sub}
+      >Insira o seu CPF: </Text>
+      <TextInput 
+        keyboardType = 'numeric'
+        style = {styles.input}
+        placeholder = 'ex: 12345678910'
+        onChangeText = {(val) => setAge(val)} />
 
-//
+      <TouchableOpacity 
+          style = {styles.button}
+          onPress = { onPress }>
+        <Text style = {styles.buttonText}>Bater Ponto</Text>
+
+      </TouchableOpacity>
+    
     </View>
-
   );
 }
 
 const styles = StyleSheet.create({
 
+  button: {
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    backgroundColor: '#0e72Be',
+    shadowColor: 'black',
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    shadowOffset: {
+    height: 1,
+    width: 1 }
+  },
+
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    fontSize: 15,
+    textAlign: 'center'
+  },
+
   title: {
-    fontSize: 30,
-    marginBottom: 300,
-    marginTop: 150,
+    fontSize: 25,
+    marginBottom: 80,
+    marginTop: 30,
     color: '#032066',
     alignItems: 'center',
     fontWeight: 'bold'
+  },
+
+  sub: {
+    fontSize: 18,
+    color: '#0e72Be',
+    fontWeight: 'bold'
+  // alignItems
   },
   
   logo: {
@@ -70,13 +94,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  input:{
-    marginTop: 10,
-    padding: 10,
-    width:300,
-    backgroundColor:'#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    borderRadius: 3,
-},
+  input: { //Caixa do Formulário
+    margin: 10,
+    width: 200,
+    padding: 8,
+    borderColor: '#082d95',
+    borderWidth: 1.5,
+    borderRadius: 3
+  },
 });
