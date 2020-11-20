@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, Image, TextInput } from 'react-native';
 
 
+
 import logoImg from './assets/icon.png';
 
 export default function App({ onPress }) {
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: {
     height: 1,
-    width: 1 }
+    width: 1 },
+    marginTop: 20
   },
 
   buttonText: {
@@ -68,8 +70,8 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 25,
-    marginBottom: 80,
-    marginTop: 30,
+    marginBottom: 100,
+    marginTop: 0,
     color: '#032066',
     alignItems: 'center',
     fontWeight: 'bold'
@@ -78,13 +80,14 @@ const styles = StyleSheet.create({
   sub: {
     fontSize: 18,
     color: '#0e72Be',
-    fontWeight: 'bold'
-  // alignItems
+    fontWeight: 'bold',
   },
   
   logo: {
     width: 80,
     height: 80,
+    marginTop: -80,
+    marginBottom: 10 
   },
 
   container: {
