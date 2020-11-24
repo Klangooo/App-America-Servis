@@ -1,15 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, Image, TextInput } from 'react-native';
-
+import React, { Component, useState } from 'react';
+import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyboard } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import logoImg from './assets/icon.png';
 
-export default function App({ onPress }) {
+  export default class Inicio extends Component {
 
-  const [age, setAge] = useState ('12');
+     constructor(props) {
+       super(props);
+       this.state = { CPF: "0" };
+     }
 
+  gravarCPF = async () => {
+    try{
+      await AsyncStorage.setItem("@CPF_input", this.state.CPF)
+      Keyboard.dismiss();
+      Alert.alert("BOA", "Salvo com sucesso");
+
+    } catch (e) {
+      alert(e);
+    }
+
+  } 
+  
+/*   printaCPF = async () => {
+    try{
+      const printar = await AsyncStorage.getItem("@CPF_input")
+
+      if(printar !== null && printar.length == 11) {
+      Alert.alert("BOA", printar);
+      }
+
+    } catch (e) {
+      Alert.alert("Putz", "Deu ruim")
+    }
+
+  } */
+
+  render() {
   return (
 
     <View style={styles.container}>
@@ -19,29 +49,38 @@ export default function App({ onPress }) {
        style={styles.logo}
       />
 
-     <Text
-      style={styles.title}
-      >Bem-vindo!</Text>
+      <Text
+        style={styles.title}>Bem-vindo!
+      </Text>
       <StatusBar style="auto" />
 
       <Text
-      style={styles.sub}
-      >Insira o seu CPF: </Text>
+        style={styles.sub}>Insira o seu CPF:
+      </Text>
+
       <TextInput 
         keyboardType = 'numeric'
         style = {styles.input}
         placeholder = 'ex: 12345678910'
-        onChangeText = {(val) => setAge(val)} />
+        onChangeText = {(texto) => this.setState({CPF : texto})} 
+      
+      />
 
       <TouchableOpacity 
           style = {styles.button}
-          onPress = { onPress }>
+          onPress = { this.gravarCPF }>
         <Text style = {styles.buttonText}>Bater Ponto</Text>
-
       </TouchableOpacity>
+
+{/*       <TouchableOpacity 
+          style = {styles.button}
+          onPress = { this.printaCPF }>
+        <Text style = {styles.buttonText}>Print</Text>
+      </TouchableOpacity> */}
     
     </View>
   );
+  }
 }
 
 const styles = StyleSheet.create({
