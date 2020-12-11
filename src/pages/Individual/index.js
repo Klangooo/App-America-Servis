@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyb
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-import logoImg from './assets/icon.png';
+import logoImg from '../../../assets/icon.png';
 
   export default class Inicio extends Component {
 

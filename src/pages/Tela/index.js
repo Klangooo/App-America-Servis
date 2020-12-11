@@ -2,13 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import logoImg from '../../../assets/icon.png';
 
-import logoImg from './assets/icon.png';
+  export default function tela () {
+    const navigation = useNavigation ();
+   // const route = useRoute();
 
-  export default class Inicio extends Component {
-
-  render() {
   return (
 
     <View style={styles.container}>
@@ -24,20 +26,19 @@ import logoImg from './assets/icon.png';
 
       <TouchableOpacity 
           style = {styles.button}
-          onPress = {() => navigateToIndividual(tela1) }>
+          onPress = {() => navigation.navigate('Individual') }>
         <Text style = {styles.buttonText}>Individual</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
           style = {styles.button}
-          onPress = {() => navigateToColetivo(tela1) }>
+          onPress = {() => navigation.navigate('Coletivo') }>
         <Text style = {styles.buttonText}>Coletivo</Text>
       </TouchableOpacity>
 
     </View>
     );
   }
-}
 
 const styles = StyleSheet.create({
 

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @ react-native-async-storage / async-storage
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @react-navigation/stack
 
 PATH: 
   C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\OpenJDK\openjdk-8u262-b10\bin;C:\Program Files (x86)\Yarn\bin\;C:\Teste\Git\cmd;C:\Git\cmd;%PATH;C:\Git\bin
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@: Request "https://registry.yarnpkg.com/@" returned a 405
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66106:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140749:22)
-      at Request.emit (events.js:314:20)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141721:10)
-      at Request.emit (events.js:314:20)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141643:12)
-      at Object.onceWrapper (events.js:420:28)
-      at IncomingMessage.emit (events.js:326:22)
-      at endReadableNT (_stream_readable.js:1252:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  Error: EPERM: operation not permitted, unlink 'C:\App AS\App-America-Servis\node_modules\@babel\generator\node_modules\.bin'
 
 npm manifest: 
   {
@@ -37,9 +27,11 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "@react-native-async-storage/async-storage": "^1.13.2",
       "@react-navigation/native": "^5.8.6",
+      "axios": "^0.21.0",
       "cors": "^2.8.5",
-      "expo": "^39.0.4",
+      "expo": "^39.0.5",
       "expo-status-bar": "~1.0.2",
       "express": "^4.17.1",
       "react": "16.13.1",
@@ -1188,6 +1180,13 @@ Lockfile:
       "@types/yargs" "^15.0.0"
       chalk "^3.0.0"
   
+  "@react-native-async-storage/async-storage@^1.13.2":
+    version "1.13.2"
+    resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.13.2.tgz#649f78527f16cd5a87071a888219ef7a35ef5c79"
+    integrity sha512-isTDvUApRJPVWFxV15yrQSOGqarX7cIedq/y4N5yWSnotf68D9qvDEv1I7rCXhkBDi0u4OJt6GA9dksUT0D3wg==
+    dependencies:
+      deep-assign "^3.0.0"
+  
   "@react-native-community/cli-debugger-ui@^4.9.0":
     version "4.9.0"
     resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.9.0.tgz#4177764ba69243c97aa26829d59d9501acb2bd71"
@@ -1630,6 +1629,13 @@ Lockfile:
     integrity sha512-XWX3OX8Onv97LMk/ftVyBibpGwY5a8SmuxZPzeOxqmuEqUCOM9ZE+uIaD1VNJ5QnvU2UQusvmKbuM1FR8QWGfQ==
     dependencies:
       array-filter "^1.0.0"
+  
+  axios@^0.21.0:
+    version "0.21.0"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
+    integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
+    dependencies:
+      follow-redirects "^1.10.0"
   
   babel-plugin-dynamic-import-node@^2.3.3:
     version "2.3.3"
@@ -2650,10 +2656,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.2.tgz#2441a77c56be31597898337b0d086981f2adefd8"
     integrity sha512-5313u744GcLzCadxIPXyTkYw77++UXv1dXCuhYDxDbtsEf93iMra7WSvzyE8a7mRQLIIPRuGnBOdrL/V1C7EOQ==
   
-  expo@^39.0.4:
-    version "39.0.4"
-    resolved "https://registry.yarnpkg.com/expo/-/expo-39.0.4.tgz#320b7453ac055fc37c64942d5ba442f4e2781993"
-    integrity sha512-lyd7VSg0DG+I2CwWtOHwhmMwgANoqggqU1ooWRdO4KdWPYA8hWMMsLC2vBBBemKv3PPwxhl9hhzFxtjJ/MaR7g==
+  expo@^39.0.5:
+    version "39.0.5"
+    resolved "https://registry.yarnpkg.com/expo/-/expo-39.0.5.tgz#d2a37a65859c8c5c1821a49012548bdf541a4c7f"
+    integrity sha512-uLywo0Gvx0SUz/Bso/2IMDeMr9Lvr4/4YB8yAYS3BW3872duFHKHVccKEqLzBN+q/5DuW5fmSNkOeQCThMFo/w==
     dependencies:
       "@babel/runtime" "^7.1.2"
       "@expo/vector-icons" "^10.0.2"
@@ -2921,6 +2927,11 @@ Lockfile:
     dependencies:
       locate-path "^5.0.0"
       path-exists "^4.0.0"
+  
+  follow-redirects@^1.10.0:
+    version "1.13.0"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
+    integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
   
   fontfaceobserver@^2.1.0:
     version "2.1.0"

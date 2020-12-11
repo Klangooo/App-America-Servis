@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyb
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-import logoImg from './assets/icon.png';
+import logoImg from '../../../assets/icon.png';
 
   export default class Inicio extends Component {
 
@@ -71,15 +71,17 @@ import logoImg from './assets/icon.png';
       alert(e);
     }
 
-    gravarSaida = async () => {
-      try{
-        await AsyncStorage.setItem("@CPF_input", this.state.CPF)
-        Keyboard.dismiss();
-        Alert.alert("BOA", "Salvo com sucesso");
-  
-      } catch (e) {
-        alert(e);
-      }
+  } 
+
+  gravarSaida = async () => {
+    try{
+      await AsyncStorage.setItem("@CPF_input", this.state.CPF)
+      Keyboard.dismiss();
+      Alert.alert("BOA", "Salvo com sucesso");
+
+    } catch (e) {
+      alert(e);
+    }
 
   } 
 
@@ -92,8 +94,8 @@ import logoImg from './assets/icon.png';
     } catch (e) {
       alert(e);
     }
-
   } 
+
   
 /*   printaCPF = async () => {
     try{
@@ -139,7 +141,7 @@ import logoImg from './assets/icon.png';
           style = {styles.button}
           onPress = { this.gravarIniciar }>
         <Text style = {styles.buttonText}>Iniciar</Text>
-      </TouchableOpacity>}
+      </TouchableOpacity>
 
       <TouchableOpacity 
           style = {styles.button}
@@ -150,7 +152,7 @@ import logoImg from './assets/icon.png';
       <TouchableOpacity 
           style = {styles.button}
           onPress = { this.gravarAlmocoFim }>
-        <Text style = {styles.buttonText}>Fim do almoço</Text>
+        <Text style = {styles.buttonText}>Saída</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
