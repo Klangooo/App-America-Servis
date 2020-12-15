@@ -1,9 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyboard } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import logoImg from '../../../assets/icon.png';
 
