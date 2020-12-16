@@ -1,14 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyboard } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import logoImg from '../../../assets/icon.png';
+import logoImg from './assets/icon.png';
 
-  export default function tela () {
-    const navigation = useNavigation ();
-   // const route = useRoute();
+  export default class Inicio extends Component {
 
+  render() {
   return (
 
     <View style={styles.container}>
@@ -37,6 +38,7 @@ import logoImg from '../../../assets/icon.png';
     </View>
     );
   }
+}
 
 const styles = StyleSheet.create({
 
@@ -80,10 +82,8 @@ const styles = StyleSheet.create({
   logo: {
     width: 80,
     height: 80,
-    //marginTop: -80,
-    marginBottom: 10,
-    paddingTop: 10
-     
+    marginTop: -80,
+    marginBottom: 10 
   },
 
   container: {

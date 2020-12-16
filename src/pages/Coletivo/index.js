@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
-import { StyleSheet, TouchableOpacity, Alert, Text, View, Image, TextInput, Keyboard } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, TextInput, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios'
+import axios from 'axios';
 import logoImg from '../../../assets/icon.png';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 const api = axios.create({
   baseURL: 'https://webhook.site/d63f9711-bfce-4593-acf0-796927887dcb'
@@ -176,9 +178,19 @@ const api = axios.create({
   }
 
   render() {
+
+    const { goBack } = this.props.navigation;
+
   return (
     
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+
+      <TouchableOpacity 
+          style = {styles.seta}
+          onPress = {()=> goBack()}>
+        <Feather name="chevron-left" size={38} color="#0e72Be" />
+      </TouchableOpacity>
+
       <Image 
        source={logoImg}
        style={styles.logo}
@@ -190,7 +202,7 @@ const api = axios.create({
       )}
 
       <Text
-        style={styles.title}>Bem-vindo!
+        style={styles.title}>Bem-vindos!
       </Text>
       <StatusBar style="auto" />
 
@@ -229,12 +241,21 @@ const api = axios.create({
           onPress = { this.gravarFim }>
         <Text style = {styles.buttonText}>Finalizar expediente</Text>
       </TouchableOpacity>}
-    </View>
+
+    </ScrollView>
   );
   }
 }
 
 const styles = StyleSheet.create({
+
+  seta: {
+    //width: 100,
+    //marginBottom: 10 ,
+    marginTop: 40,
+    paddingBottom: 20
+  },
+  
 
   button: {
     borderRadius: 5,
@@ -247,7 +268,8 @@ const styles = StyleSheet.create({
     shadowOffset: {
     height: 1,
     width: 1 },
-    marginTop: 20
+    marginTop: 20,
+    alignSelf: 'center'
   },
 
   buttonText: {
@@ -263,28 +285,33 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     marginTop: 0,
     color: '#032066',
-    alignItems: 'center',
-    fontWeight: 'bold'
+    //alignItems: 'center',
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
 
   sub: {
     fontSize: 18,
     color: '#0e72Be',
     fontWeight: 'bold',
+    textAlign: 'center'
   },
   
   logo: {
     width: 80,
     height: 80,
-    marginTop: -80,
-    marginBottom: 10 
+    marginLeft: '35%',
+    //marginTop: -80,
+    marginBottom: 10, 
+    //Align: 'center'
   },
 
   container: {
     flex: 1,
     backgroundColor: '#E5E6E8',
-    alignItems: 'center',
-    justifyContent: 'center',
+    
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
 
   input: { //Caixa do Formulário
@@ -293,6 +320,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderColor: '#082d95',
     borderWidth: 1.5,
-    borderRadius: 3
+    borderRadius: 3,
+    marginLeft: '19%'
   },
 });
