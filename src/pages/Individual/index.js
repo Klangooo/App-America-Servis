@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Feather } from '@expo/vector-icons';
 import React, { Component, useState } from 'react';
-import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, TextInput, Keyboard } from 'react-native';
+import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, TextInput, Keyboard, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import logoImg from '../../../assets/icon.png';
@@ -19,10 +19,7 @@ export default class Inicio extends Component {
        super(props);
        this.state = {
         CPF: "0",
-        showButton1: true,
-        showButton2: false,
-        showButton3: false,
-        showButton4: false,
+        showButton: true,
         ready: false,
         where: {lat:null, lng:null, ts:null},
         error: null,
@@ -61,15 +58,12 @@ export default class Inicio extends Component {
       navigator.geolocation.getCurrentPosition( this.geoSuccess, this.geoFailure, geoOptions);
 
       try{
-        await AsyncStorage.setItem("@CPF_input", this.state.CPF);
-        await AsyncStorage.setItem("@latitude_string_iniciar", this.state.where.lat.toString());
-        await AsyncStorage.setItem("@longitude_string_iniciar", this.state.where.lng.toString());
-        await AsyncStorage.setItem("@timeStamp_string_iniciar", this.state.where.ts.toString());
+        await AsyncStorage.setItem(`@${this.state.CPF}_latitude_string_iniciar`, this.state.where.lat.toString());
+        await AsyncStorage.setItem(`@${this.state.CPF}_longitude_string_iniciar`, this.state.where.lng.toString());
+        await AsyncStorage.setItem(`@${this.state.CPF}_timeStamp_string_iniciar`, this.state.where.ts.toString());
         Keyboard.dismiss();
         Alert.alert("Sucesso!", "A sua entrada foi salva com sucesso!");
-        this.setState({showButton1: false});
-        this.setState({showButton2: true})
-  
+        
       } catch (e) {
       Alert.alert("Erro ao salvar", "")
       }
@@ -86,14 +80,11 @@ export default class Inicio extends Component {
     navigator.geolocation.getCurrentPosition( this.geoSuccess, this.geoFailure, geoOptions);
 
     try{
-      await AsyncStorage.setItem("@CPF_input", this.state.CPF)
-      await AsyncStorage.setItem("@latitude_string_almoco", this.state.where.lat.toString());
-      await AsyncStorage.setItem("@longitude_string_almoco", this.state.where.lng.toString());
-      await AsyncStorage.setItem("@timeStamp_string_almoco", this.state.where.ts.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_latitude_string_almoco`, this.state.where.lat.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_longitude_string_almoco`, this.state.where.lng.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_timeStamp_string_almoco`, this.state.where.ts.toString());
       Keyboard.dismiss();
       Alert.alert("Sucesso!", "A sua entrada para o almoço foi salva com sucesso!");
-      this.setState({showButton2: false});
-      this.setState({showButton3: true})
 
     } catch (e) {
     Alert.alert("Erro ao salvar", "")
@@ -111,14 +102,11 @@ export default class Inicio extends Component {
     navigator.geolocation.getCurrentPosition( this.geoSuccess, this.geoFailure, geoOptions);
 
     try{
-      await AsyncStorage.setItem("@CPF_input", this.state.CPF)
-      await AsyncStorage.setItem("@latitude_string_retorno", this.state.where.lat.toString());
-      await AsyncStorage.setItem("@longitude_string_retorno", this.state.where.lng.toString());
-      await AsyncStorage.setItem("@timeStamp_string_retorno", this.state.where.ts.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_latitude_string_retorno`, this.state.where.lat.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_longitude_string_retorno`, this.state.where.lng.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_timeStamp_string_retorno`, this.state.where.ts.toString());
       Keyboard.dismiss();
       Alert.alert("Sucesso!", "O seu retorno foi salvo com sucesso!");
-      this.setState({showButton3: false});
-      this.setState({showButton4: true})
 
     } catch (e) {
     Alert.alert("Erro ao salvar", "")
@@ -136,13 +124,10 @@ export default class Inicio extends Component {
     navigator.geolocation.getCurrentPosition( this.geoSuccess, this.geoFailure, geoOptions);
     
     try{
-      await AsyncStorage.setItem("@CPF_input", this.state.CPF)
-      await AsyncStorage.setItem("@latitude_string_fim", this.state.where.lat.toString());
-      await AsyncStorage.setItem("@longitude_string_fim", this.state.where.lng.toString());
-      await AsyncStorage.setItem("@timeStamp_string_fim", this.state.where.ts.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_latitude_string_fim`, this.state.where.lat.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_longitude_string_fim`, this.state.where.lng.toString());
+      await AsyncStorage.setItem(`@${this.state.CPF}_timeStamp_string_fim`, this.state.where.ts.toString());
       Keyboard.dismiss();
-      this.setState({showButton4: false});
-      
       this.createPonto();
     } catch (e) {
       Alert.alert("Erro ao salvar", "")
@@ -151,29 +136,13 @@ export default class Inicio extends Component {
   } 
 
   createPonto = async () => {
-    const CPF_input = await AsyncStorage.getItem("@CPF_input")
-
-    const latitude_string_iniciar = await AsyncStorage.getItem("@latitude_string_iniciar")
-    const longitude_string_iniciar = await AsyncStorage.getItem("@longitude_string_iniciar")
-    const timeStamp_string_iniciar = await AsyncStorage.getItem("@timeStamp_string_iniciar")
-
-    const latitude_string_almoco = await AsyncStorage.getItem("@latitude_string_almoco")
-    const longitude_string_almoco = await AsyncStorage.getItem("@longitude_string_almoco")
-    const timeStamp_string_almoco = await AsyncStorage.getItem("@timeStamp_string_almoco")
-
-    const latitude_string_retorno = await AsyncStorage.getItem("@latitude_string_retorno")
-    const longitude_string_retorno = await AsyncStorage.getItem("@longitude_string_retorno")
-    const timeStamp_string_retorno = await AsyncStorage.getItem("@timeStamp_string_retorno")
-
-    const latitude_string_fim = await AsyncStorage.getItem("@latitude_string_fim")
-    const longitude_string_fim = await AsyncStorage.getItem("@longitude_string_fim")
-    const timeStamp_string_fim = await AsyncStorage.getItem("@timeStamp_string_fim")
-
+    this.setState({showButton: false});
+    let dados
+    dados = await AsyncStorage.getAllKeys()
     try{
-    let resposta = await api.post('/', { CPF: CPF_input, latitude_iniciar: latitude_string_iniciar, longitude_iniciar: longitude_string_iniciar, hora_iniciar: timeStamp_string_iniciar, latitude_almoco: latitude_string_almoco, longitude_almoco: longitude_string_almoco, hora_almoco: timeStamp_string_almoco, latitude_retorno: latitude_string_retorno, longitude_retorno: longitude_string_retorno, hora_retorno: timeStamp_string_retorno, latitude_fim: latitude_string_fim, longitude_fim: longitude_string_fim, hora_fim: timeStamp_string_fim })
-    console.log(resposta)
+    let resposta = await api.post('/', { valores: dados })
     Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
-    this.setState({showButton1: true});
+    this.setState({showButton: true});
 
     await AsyncStorage.clear()
 
@@ -212,42 +181,43 @@ export default class Inicio extends Component {
       <StatusBar style="auto" />
 
       <Text
-        style={styles.sub}>Insira o seu CPF:
+        style={styles.sub}>Insira o número do seu CPF:
       </Text>
 
       <TextInput 
         keyboardType = 'numeric'
         style = {styles.input}
-        placeholder = 'ex: 12345678910'
+        placeholder = 'Exemplo: 12345678910'
         onChangeText = {(texto) => this.setState({CPF : texto})} 
       
       />
 
-{this.state.showButton1 && this.state.ready &&<TouchableOpacity 
+{this.state.showButton && this.state.ready &&<TouchableOpacity 
           style = {styles.button}
           onPress = { this.gravarIniciar }>
         <Text style = {styles.buttonText}>Entrada</Text>
 </TouchableOpacity>}
 
-    {this.state.showButton2 && <TouchableOpacity 
+    {this.state.showButton && this.state.ready && <TouchableOpacity 
           style = {styles.button}
           onPress = { this.gravarAlmoco }>
         <Text style = {styles.buttonText}>Almoço</Text>
       </TouchableOpacity>}
 
-     {this.state.showButton3 && <TouchableOpacity 
+     {this.state.showButton && this.state.ready && <TouchableOpacity 
           style = {styles.button}
           onPress = { this.gravarAlmocoFim }>
         <Text style = {styles.buttonText}>Retorno do almoço</Text>
       </TouchableOpacity>}
 
-     {this.state.showButton4 && <TouchableOpacity 
+     {this.state.showButton && this.state.ready && <TouchableOpacity 
           style = {styles.button}
           onPress = { this.gravarFim }>
         <Text style = {styles.buttonText}>Finalizar expediente</Text>
       </TouchableOpacity>}
 
-    
+      {!this.state.showButton && <ActivityIndicator size="large" color="#032066" />}
+
     </ScrollView>
   );
   }
@@ -256,8 +226,6 @@ export default class Inicio extends Component {
 const styles = StyleSheet.create({
 
   seta: {
-    //width: 100,
-    //marginBottom: 10 ,
     marginTop: 40,
     paddingBottom: 20
   },
@@ -275,6 +243,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: 1 },
     marginTop: 20,
+    width: '60%',
     alignSelf: 'center'
   },
 
@@ -291,7 +260,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     marginTop: 0,
     color: '#032066',
-    //alignItems: 'center',
     fontWeight: 'bold',
     textAlign: 'center'
   },
@@ -300,33 +268,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#0e72Be',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: "5%",
   },
   
   logo: {
     width: 80,
     height: 80,
-    marginLeft: '35%',
-    //marginTop: -80,
-    marginBottom: 10, 
-    //Align: 'center'
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 
   container: {
     flex: 1,
     backgroundColor: '#E5E6E8',
-    
-    //alignItems: 'center',
-    //justifyContent: 'center',
   },
 
   input: { //Caixa do Formulário
-    margin: 10,
-    width: 200,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '50%',
     padding: 8,
     borderColor: '#082d95',
     borderWidth: 1.5,
     borderRadius: 3,
-    marginLeft: '19%'
   },
 });
