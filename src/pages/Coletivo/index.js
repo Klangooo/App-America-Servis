@@ -1,14 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, TextInput, Keyboard, ActivityIndicator } from 'react-native';
+import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, Keyboard, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import logoImg from '../../../assets/icon.png';
+import { TextInputMask } from 'react-native-masked-text';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 const api = axios.create({
-  baseURL: 'https://webhook.site/d63f9711-bfce-4593-acf0-796927887dcb'
+  baseURL: 'https://webhook.site/4905b00e-3052-4335-bdae-8f7486bfebb3'
 })
 
   export default class Inicio extends Component {
@@ -16,7 +17,7 @@ const api = axios.create({
      constructor(props) {
        super(props);
        this.state = {
-        CPF: "0",
+        CPF: "",
         showButton: true,
         ready: false,
         where: {lat:null, lng:null, ts:null},
@@ -35,7 +36,6 @@ const api = axios.create({
     }
 
     geoSuccess = (position) => {
-      console.log(position);
       this.setState({
         ready:true,
         where: { lat: position.coords.latitude,lng:position.coords.longitude,ts: position.timestamp }
@@ -135,11 +135,12 @@ const api = axios.create({
 
   createPonto = async () => {
     this.setState({showButton: false});
-    let dados
-    dados = await AsyncStorage.getAllKeys()
+    let keys
+    keys = await AsyncStorage.getAllKeys()
+    valores = await AsyncStorage.multiGet(keys)
     try{
-    let resposta = await api.post('/', { valores: dados })
-    Alert.alert("Sucesso!", "O expediente coletivo foi registrado e enviado!");
+    let resposta = await api.post('/', { valores })
+    Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
     this.setState({showButton: true});
 
     await AsyncStorage.clear()
@@ -148,6 +149,7 @@ const api = axios.create({
     Alert.alert("Erro ao salvar", "Verifique sua conexão com a internet e tente novamente!", [{ text: "Tentar Novamente", onPress: () => this.createPonto() }])
     }
   }
+
 
   render() {
 
@@ -182,11 +184,13 @@ const api = axios.create({
         style={styles.sub}>Insira o número do seu CPF:
       </Text>
 
-      <TextInput 
+      <TextInputMask 
+        type={'cpf'}
+        value={this.state.CPF}
         keyboardType = 'numeric'
         style = {styles.input}
-        placeholder = 'Exemplo: 12345678910'
-        onChangeText = {(texto) => this.setState({CPF : texto})} 
+        placeholder = 'Exemplo: 123.456.789-10'
+        onChangeText = {texto => this.setState({CPF : texto})} 
       
       />
 

@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { Feather } from '@expo/vector-icons';
 import React, { Component, useState } from 'react';
-import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, TextInput, Keyboard, ActivityIndicator } from 'react-native';
+import { StyleSheet, TouchableOpacity, Alert, Text, ScrollView, Image, Keyboard, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import logoImg from '../../../assets/icon.png';
+import { TextInputMask } from 'react-native-masked-text';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 const api = axios.create({
@@ -18,7 +19,7 @@ export default class Inicio extends Component {
      constructor(props) {
        super(props);
        this.state = {
-        CPF: "0",
+        CPF: "",
         showButton: true,
         ready: false,
         where: {lat:null, lng:null, ts:null},
@@ -37,7 +38,6 @@ export default class Inicio extends Component {
     }
 
     geoSuccess = (position) => {
-      console.log(position);
       this.setState({
         ready:true,
         where: { lat: position.coords.latitude,lng:position.coords.longitude,ts: position.timestamp }
@@ -139,9 +139,9 @@ export default class Inicio extends Component {
     this.setState({showButton: false});
     let keys
     keys = await AsyncStorage.getAllKeys()
-    dados = await AsyncStorage.multiGet(keys)
+    valores = await AsyncStorage.multiGet(keys)
     try{
-    let resposta = await api.post('/', { valores: dados })
+    let resposta = await api.post('/', { valores })
     Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
     this.setState({showButton: true});
 
@@ -185,11 +185,13 @@ export default class Inicio extends Component {
         style={styles.sub}>Insira o número do seu CPF:
       </Text>
 
-      <TextInput 
+      <TextInputMask 
+        type={'cpf'}
+        value={this.state.CPF}
         keyboardType = 'numeric'
         style = {styles.input}
-        placeholder = 'Exemplo: 12345678910'
-        onChangeText = {(texto) => this.setState({CPF : texto})} 
+        placeholder = 'Exemplo: 123.456.789-10'
+        onChangeText = {texto => this.setState({CPF : texto})} 
       
       />
 
