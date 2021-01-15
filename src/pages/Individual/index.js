@@ -8,7 +8,7 @@ import logoImg from '../../../assets/icon.png';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 const api = axios.create({
-  baseURL: 'https://webhook.site/d63f9711-bfce-4593-acf0-796927887dcb'
+  baseURL: 'https://webhook.site/4905b00e-3052-4335-bdae-8f7486bfebb3'
 })
 
 export default class Inicio extends Component {
@@ -137,8 +137,9 @@ export default class Inicio extends Component {
 
   createPonto = async () => {
     this.setState({showButton: false});
-    let dados
-    dados = await AsyncStorage.getAllKeys()
+    let keys
+    keys = await AsyncStorage.getAllKeys()
+    dados = await AsyncStorage.multiGet(keys)
     try{
     let resposta = await api.post('/', { valores: dados })
     Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
