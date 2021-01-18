@@ -9,12 +9,10 @@ import { TextInputMask } from 'react-native-masked-text';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 const api = axios.create({
-  baseURL: 'https://webhook.site/4905b00e-3052-4335-bdae-8f7486bfebb3'
+  baseURL: 'http://whispering-gorge-97868.herokuapp.com/'
 })
 
-export default class Inicio extends Component {
-  
- 
+  export default class Inicio extends Component { 
 
      constructor(props) {
        super(props);
