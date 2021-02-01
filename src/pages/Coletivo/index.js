@@ -9,7 +9,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 const api = axios.create({
-  baseURL: 'http://whispering-gorge-97868.herokuapp.com/'
+  baseURL: 'http://whispering-gorge-97868.herokuapp.com/api/entrada'
 })
 
   export default class Inicio extends Component {
@@ -137,7 +137,7 @@ const api = axios.create({
     this.setState({showButton: false});
     let keys
     keys = await AsyncStorage.getAllKeys()
-    valores = await AsyncStorage.multiGet(keys)
+    const valores = await AsyncStorage.multiGet(keys)
     try{
     let resposta = await api.post('/', { valores })
     Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
