@@ -24,6 +24,10 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
      }
 
     componentDidMount () {
+    Alert.alert("Permitir que o aplicativo acesso a sua localização", "Este aplicativo coleta dados de localização para habilitar a checagem de endereço conforme seu posto de trabalho estabelecido, mesmo quando o aplicativo está fechado ou não em uso.", [{ text: "Confirmar", onPress: () => this.localizacao() }])
+    }
+
+    localizacao = () => {
       let geoOptions = {
         enableHighAccuaracy: true,
         timeOut: 20000,

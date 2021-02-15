@@ -25,15 +25,19 @@ const api = axios.create({
         };
      }
 
-    componentDidMount () {
-      let geoOptions = {
-        enableHighAccuaracy: true,
-        timeOut: 20000,
-        maximumAge: 60*60
+     componentDidMount () {
+      Alert.alert("Permitir que o aplicativo acesso a sua localização", "Este aplicativo coleta dados de localização para habilitar a checagem de endereço conforme seu posto de trabalho estabelecido, mesmo quando o aplicativo está fechado ou não em uso.", [{ text: "Confirmar", onPress: () => this.localizacao() }])
       }
-      this.setState({ready:false, error: null});
-      navigator.geolocation.getCurrentPosition( this.geoSuccess, this.geoFailure, geoOptions);
-    }
+  
+      localizacao = () => {
+        let geoOptions = {
+          enableHighAccuaracy: true,
+          timeOut: 20000,
+          maximumAge: 60*60
+        }
+        this.setState({ready:false, error: null});
+        navigator.geolocation.getCurrentPosition( this.geoSuccess, this.geoFailure, geoOptions);
+      }
 
     geoSuccess = (position) => {
       this.setState({
