@@ -6,16 +6,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 const AppStack = createStackNavigator();
 
 import Tela from './pages/Tela';
-import Individual from './pages/Individual';
 import Coletivo from './pages/Coletivo';
+import Holerite from './pages/Holerite';
 
 export default function Routes() {
     return (
         <NavigationContainer>
             <AppStack.Navigator screenOptions={{ headerShown: false }}>
                 <AppStack.Screen name="Tela" component={Tela} />
-                <AppStack.Screen name="Individual" component={Individual} />
                 <AppStack.Screen name="Coletivo" component={Coletivo} />
+                <AppStack.Screen name="Holerite" component={Holerite} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

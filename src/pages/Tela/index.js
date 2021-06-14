@@ -24,14 +24,14 @@ import logoImg from '../../../assets/icon.png';
 
       <TouchableOpacity 
           style = {styles.button}
-          onPress = {() => navigation.navigate('Individual') }>
-        <Text style = {styles.buttonText}>Individual</Text>
+          onPress = {() => navigation.navigate('Coletivo') }>
+        <Text style = {styles.buttonText}>Ponto</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
           style = {styles.button}
-          onPress = {() => navigation.navigate('Coletivo') }>
-        <Text style = {styles.buttonText}>Coletivo</Text>
+          onPress = {() => navigation.navigate('Holerite') }>
+        <Text style = {styles.buttonText}>Consultar holerite</Text>
       </TouchableOpacity>
 
     </View>

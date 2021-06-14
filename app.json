@@ -3,7 +3,7 @@
     "name": "App-America-Servis",
     "slug": "App-America-Servis",
     "description": "Ponto digital",
-    "version": "2.0.0",
+    "version": "4.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,11 +19,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.americaservis.myapp"
+      "bundleIdentifier": "com.americaservis.myapp",
+      "buildNumber": "6.0.0",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Este aplicativo coleta dados de localização para habilitar a checagem de endereço conforme seu posto de trabalho estabelecido, mesmo quando o aplicativo está fechado ou não em uso."
+      }
     },
     "android": {
       "package": "com.americaservis.myapp",
-      "versionCode": 2,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

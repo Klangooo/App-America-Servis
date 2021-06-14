@@ -7,10 +7,7 @@ import axios from 'axios';
 import logoImg from '../../../assets/icon.png';
 import { TextInputMask } from 'react-native-masked-text';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
-const api = axios.create({
-  baseURL: 'http://whispering-gorge-97868.herokuapp.com/api/entrada'
-})
+import NetInfo from '@react-native-community/netinfo';
 
   export default class Inicio extends Component {
 
@@ -27,7 +24,7 @@ const api = axios.create({
 
      componentDidMount () {
       Alert.alert("Permitir que o aplicativo acesso a sua localização", "Este aplicativo coleta dados de localização para habilitar a checagem de endereço conforme seu posto de trabalho estabelecido, mesmo quando o aplicativo está fechado ou não em uso.", [{ text: "Confirmar", onPress: () => this.localizacao() }])
-      }
+      }     
   
       localizacao = () => {
         let geoOptions = {
@@ -135,23 +132,29 @@ const api = axios.create({
       Alert.alert("Erro ao salvar", "")
     }
 
-  } 
+  }
 
   createPonto = async () => {
     this.setState({showButton: false});
-    let keys
-    keys = await AsyncStorage.getAllKeys()
-    const valores = await AsyncStorage.multiGet(keys)
+    let keys;
+    keys = await AsyncStorage.getAllKeys();
+    var e = null;
+    const valores = await AsyncStorage.multiGet(keys);
     try{
-    let resposta = await api.post('/', { valores })
-    Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
-    this.setState({showButton: true});
-
-    await AsyncStorage.clear()
-
-    } catch (e) {
-    Alert.alert("Erro ao salvar", "Verifique sua conexão com a internet e tente novamente!", [{ text: "Tentar Novamente", onPress: () => this.createPonto() }])
+      await axios.post('http://whispering-gorge-97868.herokuapp.com/api/entrada', {valores})
+    } catch (erro) {
+    console.log(erro)
+    e = erro;
     }
+    if(e != null) {
+      Alert.alert("Erro ao salvar", "Verifique sua conexão com a internet e tente novamente!", [{ text: "Tentar Novamente", onPress: () => this.createPonto() }])
+    } else{
+      Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
+      this.setState({showButton: true});
+      await AsyncStorage.clear();
+      keys = '';
+    }
+
   }
 
 
