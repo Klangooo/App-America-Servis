@@ -10,7 +10,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 
 
-  export default class Inicio extends Component { 
+  export default class Holerite extends Component { 
 
      constructor(props) {
        super(props);

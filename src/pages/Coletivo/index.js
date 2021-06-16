@@ -9,7 +9,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 
-  export default class Inicio extends Component {
+  export default class Coletivo extends Component {
 
      constructor(props) {
        super(props);
