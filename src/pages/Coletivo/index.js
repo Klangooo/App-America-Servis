@@ -147,7 +147,7 @@ import NetInfo from '@react-native-community/netinfo';
     e = erro;
     }
     if(e != null) {
-      Alert.alert("Erro ao salvar", "Verifique sua conexão com a internet e tente novamente!", [{ text: "Tentar Novamente", onPress: () => this.createPonto() }])
+      Alert.alert("Erro ao salvar", "Verifique sua conexão com a internet e tente novamente!", [{text: "Cancelar", onPress:() => this.cancelarPonto()}, { text: "Tentar Novamente", onPress: () => this.createPonto() }])
     } else{
       Alert.alert("Sucesso!", "O seu expediente foi registrado e enviado!");
       this.setState({showButton: true});
@@ -156,7 +156,10 @@ import NetInfo from '@react-native-community/netinfo';
     }
 
   }
-
+  cancelarPonto = async () => {
+    this.setState({showButton: true});
+    await AsyncStorage.clear();
+  }
 
   render() {
 
